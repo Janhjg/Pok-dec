@@ -1,4 +1,4 @@
-# Objetos de una Pokédex Objetos Principales
+# Entidades de una Pokédex, entidades Principales
 1. Pokémon
 
 * id (número)
