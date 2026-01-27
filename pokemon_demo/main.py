@@ -31,6 +31,8 @@ while pikachu.esta_vivo() and charmander.esta_vivo():
             if not defensor.esta_vivo():
                 break
 
+    turno += 1
+
 # Resultado
 print("\n=== FIN DEL COMBATE ===")
 if pikachu.esta_vivo():
