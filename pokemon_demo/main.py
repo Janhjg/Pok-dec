@@ -1,5 +1,5 @@
 from pokemon import Pokemon
-
+import random
 
 # Crear dos Pokemon
 pikachu = Pokemon("Pikachu", "Eléctrico", 100, 55, 40)
@@ -15,18 +15,21 @@ turno = 1
 while pikachu.esta_vivo() and charmander.esta_vivo():
     print(f"--- Turno {turno} ---")
     
-    # Pikachu ataca
-    if pikachu.esta_vivo():
-        pikachu.atacar(charmander)
-        print(charmander)
+    combatientes = [pikachu, charmander]
+    random.shuffle(combatientes)
     
-    # Charmander ataca
-    if charmander.esta_vivo():
-        charmander.atacar(pikachu)
-        print(pikachu)
-    
-    print()
-    turno += 1
+    for atacante in combatientes:
+        # Definimos quién es el defensor
+        defensor = charmander if atacante == pikachu else pikachu
+        
+        # Atacar solo si el atacante sigue vivo (por si murió en este mismo turno)
+        if atacante.esta_vivo():
+            atacante.atacar(defensor)
+            print(defensor)
+            
+            # Si el defensor muere, terminamos el turno inmediatamente
+            if not defensor.esta_vivo():
+                break
 
 # Resultado
 print("\n=== FIN DEL COMBATE ===")
