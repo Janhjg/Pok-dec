@@ -1,28 +1,47 @@
 import random
 
+class Movimiento:
+    def __init__(self, nombre, tipo, potencia):
+        self.nombre = nombre
+        self.tipo = tipo
+        self.potencia = potencia
 
 class Pokemon:
-    def __init__(self, nombre, tipo, hp, ataque, defensa):
+    def __init__(self, nombre, tipo, hp, ataque, defensa, movimientos):
         self.nombre = nombre
         self.tipo = tipo
         self.hp = hp
         self.hp_max = hp
         self.ataque = ataque
         self.defensa = defensa
-    
+        self.movimientos = movimientos
+
     def atacar(self, enemigo):
-        """Ataca a otro Pokemon"""
-        daño = max(1, self.ataque - enemigo.defensa // 2)
+        movimiento = random.choice(self.movimientos)
+        
+        # Tu fórmula: daño = ((ataque + potencia) - defensa_enemigo / 2)
+        daño = max(1, (self.ataque + movimiento.potencia) - (enemigo.defensa // 2))
+        
         enemigo.hp -= daño
-        print(f"{self.nombre} ataca a {enemigo.nombre} causando {daño} de daño!")
+        if enemigo.hp < 0: enemigo.hp = 0
+        
+        print(f" {self.nombre} usa {movimiento.nombre} contra {enemigo.nombre}!")
+        print(f"   ¡Causa {daño} de daño!")
         
         if enemigo.hp <= 0:
-            enemigo.hp = 0
-            print(f"{enemigo.nombre} ha sido debilitado!")
+            print(f" {enemigo.nombre} ha sido debilitado!")
     
     def esta_vivo(self):
-        """Verifica si el Pokemon puede seguir luchando"""
         return self.hp > 0
     
     def __str__(self):
         return f"{self.nombre} ({self.tipo}) - HP: {self.hp}/{self.hp_max}"
+
+# --- Creación de Movimientos ---
+expropiese = Movimiento("Expropiese Relámpago", "Siniestro", 50)
+bigote_de_hierro = Movimiento("Latigazo de Bigote", "Físico", 25)
+peace_peace = Movimiento("Rolita epica", "Psíquico", 35)
+
+peluquin_volador = Movimiento("Peluquín Volador", "Normal", 30)
+lluvia_de_billetes = Movimiento("Lluvia de Billetes", "Económico", 45)
+twit = Movimiento("Twit basado", "Meme", 25)

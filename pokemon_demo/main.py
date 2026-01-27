@@ -1,41 +1,44 @@
-from pokemon import Pokemon
+from pokemon import *
 import random
+import time
 
 # Crear dos Pokemon
-pikachu = Pokemon("Pikachu", "Eléctrico", 100, 55, 40)
-charmander = Pokemon("Charmander", "Fuego", 90, 52, 43)
+Maduro = Pokemon("Maduro", "Siniestro", 500, 50, 40, [expropiese, bigote_de_hierro, peace_peace])
+DonaldT = Pokemon("DonaldT", "Económico", 600, 55, 35, [peluquin_volador, lluvia_de_billetes, twit])
 
 print("=== COMBATE POKEMON ===\n")
-print(pikachu)
-print(charmander)
+print(Maduro)
+print(DonaldT)
 print("\n¡Comienza el combate!\n")
 
 # Combate por turnos
 turno = 1
-while pikachu.esta_vivo() and charmander.esta_vivo():
-    print(f"--- Turno {turno} ---")
+turno = 1
+print(" ¡COMIENZA EL COMBATE!")
+
+while Maduro.esta_vivo() and DonaldT.esta_vivo():
+    print(f"\n--- Turno {turno} ---")
     
-    combatientes = [pikachu, charmander]
+    # Decidir orden aleatorio
+    combatientes = [Maduro, DonaldT]
     random.shuffle(combatientes)
     
     for atacante in combatientes:
-        # Definimos quién es el defensor
-        defensor = charmander if atacante == pikachu else pikachu
+        # El defensor es el que no está atacando
+        defensor = Maduro if atacante == Maduro else DonaldT
         
-        # Atacar solo si el atacante sigue vivo (por si murió en este mismo turno)
         if atacante.esta_vivo():
             atacante.atacar(defensor)
-            print(defensor)
+            print(defensor) # Muestra la vida restante
             
-            # Si el defensor muere, terminamos el turno inmediatamente
             if not defensor.esta_vivo():
-                break
-
+                break # Si alguien muere, salimos del turno
+    time.sleep(1)
     turno += 1
 
 # Resultado
 print("\n=== FIN DEL COMBATE ===")
-if pikachu.esta_vivo():
-    print(f"¡{pikachu.nombre} es el ganador!")
+if Maduro.esta_vivo():
+    print(f"¡{Maduro.nombre} es el ganador!, Diddy le entrenó bien")
 else:
-    print(f"¡{charmander.nombre} es el ganador!")
+    print(f"¡{DonaldT.nombre} es el ganador!Dadme su petróleo")
