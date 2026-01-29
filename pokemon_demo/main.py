@@ -25,7 +25,7 @@ while Maduro.esta_vivo() and DonaldT.esta_vivo():
     
     for atacante in combatientes:
         # El defensor es el que no está atacando
-        defensor = Maduro if atacante == Maduro else DonaldT
+        defensor = Maduro if atacante == DonaldT else DonaldT
         
         if atacante.esta_vivo():
             atacante.atacar(defensor)
@@ -33,7 +33,7 @@ while Maduro.esta_vivo() and DonaldT.esta_vivo():
             
             if not defensor.esta_vivo():
                 break # Si alguien muere, salimos del turno
-    time.sleep(1)
+    time.sleep(1.5)
     turno += 1
 
 # Resultado
