@@ -7,15 +7,31 @@ class Movimiento:
         self.potencia = potencia
 
 class Pokemon:
+    __nombre = None
+    
     def __init__(self, nombre, tipo, hp, ataque, defensa, movimientos):
-        self.nombre = nombre
+        self.__nombre = nombre
         self.tipo = tipo
         self.hp = hp
         self.hp_max = hp
         self.ataque = ataque
         self.defensa = defensa
         self.movimientos = movimientos
+        
+    def get_nombre(self):
+        return self.__nombre
+    
+    def set_nombre(self,nombre):
+        self.__nombre = f"{nombre} (editado)"
 
+    def aprender_movimiento(self, movimiento):
+        if movimiento.tipo() != self.tipo:
+            print(f" {self.__nombre} no puede aprender {movimiento.nombre}")
+            print(f"   (Es tipo {self.tipo}, pero {movimiento.nombre} es tipo {movimiento.tipo})")
+            return False
+        
+        self.movimientos.append(movimiento)
+    
     def atacar(self, enemigo):
         movimiento = random.choice(self.movimientos)
         
@@ -25,17 +41,17 @@ class Pokemon:
         enemigo.hp -= daño
         if enemigo.hp < 0: enemigo.hp = 0
         
-        print(f" {self.nombre} usa {movimiento.nombre} contra {enemigo.nombre}!")
+        print(f" {self.__nombre} usa {movimiento.nombre} contra {enemigo.__nombre}!")
         print(f"   ¡Causa {daño} de daño!")
         
         if enemigo.hp <= 0:
-            print(f" {enemigo.nombre} ha sido debilitado!")
+            print(f" {enemigo.__nombre} ha sido debilitado!")
     
     def esta_vivo(self):
         return self.hp > 0
     
     def __str__(self):
-        return f"{self.nombre} ({self.tipo}) - HP: {self.hp}/{self.hp_max}"
+        return f"{self.__nombre} ({self.tipo}) - HP: {self.hp}/{self.hp_max}"
 
 # --- Creación de Movimientos ---
 expropiese = Movimiento("Expropiese Relámpago", "Siniestro", 50)

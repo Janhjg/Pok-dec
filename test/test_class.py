@@ -1,5 +1,4 @@
 import pytest
-import os
 from pokemon_demo.pokemon import *
 
 class TestMovimiento:
@@ -15,7 +14,6 @@ class TestMovimiento:
         assert movimiento.nombre == "Ataque Rápido"
         assert movimiento.tipo == "Normal"
         assert movimiento.potencia == 30
-
 
 class test_pokemon_iniciar:
     
@@ -59,3 +57,45 @@ class TestPokemonEstaVivo:
         pokemon = Pokemon("Pikachu", "Eléctrico", 100, 50, 40, [movimiento])
         pokemon.hp = -10
         assert pokemon.esta_vivo() == False
+
+class TestTiposValidos:
+    
+    def test_pokemon_tipo_fuego_valido(self):
+        movimiento = Movimiento("Lanzallamas", "fuego", 90)
+        pokemon = Pokemon("Charizard", "fuego", 100, 50, 40, [movimiento])
+        assert pokemon.tipo == "fuego"
+    
+    def test_pokemon_tipo_agua_valido(self):
+        movimiento = Movimiento("Hidrobomba", "agua", 110)
+        pokemon = Pokemon("Totodile", "agua", 110, 45, 50, [movimiento])
+        assert pokemon.tipo == "agua"
+    
+    def test_pokemon_tipo_tierra_valido(self):
+        movimiento = Movimiento("Terremoto", "tierra", 100)
+        pokemon = Pokemon("Diglett", "tierra", 95, 55, 60, [movimiento])
+        assert pokemon.tipo == "tierra"
+    
+    def test_pokemon_tipo_aire_valido(self):
+        movimiento = Movimiento("Vendaval", "aire", 110)
+        pokemon = Pokemon("Pidgeot", "aire", 90, 40, 35, [movimiento])
+        assert pokemon.tipo == "aire"
+        
+class TestAprenderMovimiento:
+    
+    def test_aprender_movimiento_compatible(self):
+        mov_fuego = Movimiento("Lanzallamas", "fuego", 90)
+        pokemon = Pokemon("Charizard", "fuego", 100, 50, 40, [])
+        
+        resultado = pokemon.aprender_movimiento(mov_fuego)
+        
+        assert resultado == True
+        assert len(pokemon.movimientos) == 1
+    
+    def test_aprender_movimiento_incompatible(self):
+        mov_agua = Movimiento("Hidrobomba", "agua", 110)
+        pokemon = Pokemon("Charizard", "fuego", 100, 50, 40, [])
+        
+        resultado = pokemon.aprender_movimiento(mov_agua)
+        
+        assert resultado == False
+        assert len(pokemon.movimientos) == 0

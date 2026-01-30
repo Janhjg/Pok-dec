@@ -33,12 +33,12 @@ while Maduro.esta_vivo() and DonaldT.esta_vivo():
             
             if not defensor.esta_vivo():
                 break # Si alguien muere, salimos del turno
-    time.sleep(1.5)
+    time.sleep(1)
     turno += 1
 
 # Resultado
 print("\n=== FIN DEL COMBATE ===")
 if Maduro.esta_vivo():
-    print(f"¡{Maduro.nombre} es el ganador!, Diddy le entrenó bien")
+    print(f"¡{Maduro.get_nombre()} es el ganador!, Diddy le entrenó bien")
 else:
-    print(f"¡{DonaldT.nombre} es el ganador!Dadme su petróleo")
+    print(f"¡{DonaldT.get_nombre()} es el ganador!Dadme su petróleo")
