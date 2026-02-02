@@ -3,18 +3,20 @@ import random
 import time
 
 # Crear dos Pokemon
-Maduro = Pokemon("Maduro", "Siniestro", 500, 50, 40, [expropiese, bigote_de_hierro, peace_peace])
-DonaldT = Pokemon("DonaldT", "Económico", 600, 55, 35, [peluquin_volador, lluvia_de_billetes, twit])
+# Maduro es tipo fuego y solo puede aprender movimientos de fuego
+Maduro = Pokemon("Maduro", "fuego", 500, 50, 40, [expropiese, lanzallamas, ascuas])
+
+# DonaldT es tipo aire y solo puede aprender movimientos de aire
+DonaldT = Pokemon("DonaldT", "aire", 600, 55, 35, [peluquin_volador, lluvia_de_billetes, twit])
 
 print("=== COMBATE POKEMON ===\n")
 print(Maduro)
 print(DonaldT)
-print("\n¡Comienza el combate!\n")
+print("\n Comienza el combate!\n")
 
 # Combate por turnos
 turno = 1
-turno = 1
-print(" ¡COMIENZA EL COMBATE!")
+print(" COMIENZA EL COMBATE!")
 
 while Maduro.esta_vivo() and DonaldT.esta_vivo():
     print(f"\n--- Turno {turno} ---")
@@ -29,16 +31,17 @@ while Maduro.esta_vivo() and DonaldT.esta_vivo():
         
         if atacante.esta_vivo():
             atacante.atacar(defensor)
-            print(defensor) # Muestra la vida restante
+            print(defensor)  # Muestra la vida restante
             
             if not defensor.esta_vivo():
-                break # Si alguien muere, salimos del turno
+                break  # Si alguien muere, salimos del turno
+    
     time.sleep(1)
     turno += 1
 
 # Resultado
 print("\n=== FIN DEL COMBATE ===")
 if Maduro.esta_vivo():
-    print(f"¡{Maduro.get_nombre()} es el ganador!, Diddy le entrenó bien")
+    print(f"{Maduro.get_nombre()} es el ganador!, Diddy le entrenó bien")
 else:
-    print(f"¡{DonaldT.get_nombre()} es el ganador!Dadme su petróleo")
+    print(f"{DonaldT.get_nombre()} es el ganador! Dadme su petróleo")
