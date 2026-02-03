@@ -193,3 +193,4 @@ class TestAtaqueConRestricciones:
         charizard.atacar(blastoise)
         
         assert blastoise.hp == hp_inicial
+        

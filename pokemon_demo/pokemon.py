@@ -2,10 +2,15 @@ import random
 
 class Movimiento:
     def __init__(self, nombre, tipo, potencia):
-        self.nombre = nombre
+        self._nombre = nombre
         self.tipo = tipo
         self.potencia = potencia
-
+    @property
+    def nombre(self):
+        return self._nombre
+    @nombre.setter
+    def nombre(self,nombre):
+        self._nombre = nombre
 
 class Pokemon:
     # Tipos válidos de Pokémon
@@ -40,6 +45,7 @@ class Pokemon:
         """Añade un movimiento solo si coincide con el tipo del Pokémon"""
         if movimiento.tipo.lower() != self.tipo:
             print(f"  {self.__nombre} no puede aprender {movimiento.nombre}")
+            # TODO: LANZAR EXCEPTION
             print(f"   (Es tipo {self.tipo}, pero {movimiento.nombre} es tipo {movimiento.tipo})")
             return False
         
@@ -96,3 +102,19 @@ tornado = Movimiento("Tornado", "aire", 40)
 peluquin_volador = Movimiento("Peluquín Volador", "aire", 30)
 lluvia_de_billetes = Movimiento("Lluvia de Billetes", "aire", 45)
 twit = Movimiento("Twit basado", "aire", 25)
+
+class PokemonFuego(Pokemon):
+    def __init__(self, nombre, hp, ataque, defensa, movimientos):
+        super().__init__(nombre, "fuego", hp, ataque, defensa, movimientos)
+        
+class PokemonAgua(Pokemon):
+    def __init__(self, nombre, hp, ataque, defensa, movimientos):
+        super().__init__(nombre, "agua", hp, ataque, defensa, movimientos)
+        
+class PokemonTierra(Pokemon):
+    def __init__(self, nombre, hp, ataque, defensa, movimientos):
+        super().__init__(nombre, "tierra", hp, ataque, defensa, movimientos)
+        
+class PokemonAire(Pokemon):
+    def __init__(self, nombre, hp, ataque, defensa, movimientos):
+        super().__init__(nombre, "aire", hp, ataque, defensa, movimientos)
