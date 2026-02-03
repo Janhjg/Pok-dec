@@ -9,22 +9,21 @@ class Movimiento:
     def nombre(self):
         return self._nombre
     @nombre.setter
-    def nombre(self,nombre):
+    def nombre(self, nombre):
         self._nombre = nombre
 
 class Pokemon:
-    # Tipos válidos de Pokémon
-    TIPOS_VALIDOS = ['agua', 'fuego', 'tierra', 'aire']
+    # Tipo base que será sobrescrito por las subclases
+    TIPO = None
     
     __nombre = None
     
-    def __init__(self, nombre, tipo, hp, ataque, defensa, movimientos):
-        # Validar que el tipo sea válido
-        if tipo.lower() not in self.TIPOS_VALIDOS:
-            raise ValueError(f"Tipo inválido. Debe ser uno de: {', '.join(self.TIPOS_VALIDOS)}")
+    def __init__(self, nombre, hp, ataque, defensa, movimientos):
+        if self.TIPO is None:
+            raise TypeError("No se puede poner Pokemon directamente. Usa PokemonFuego, PokemonAgua, etc.")
         
         self.__nombre = nombre
-        self.tipo = tipo.lower()
+        self.tipo = self.TIPO
         self.hp = hp
         self.hp_max = hp
         self.ataque = ataque
@@ -34,7 +33,7 @@ class Pokemon:
         # Añadir movimientos validando el tipo
         for movimiento in movimientos:
             self.aprender_movimiento(movimiento)
-        
+    
     def get_nombre(self):
         return self.__nombre
     
@@ -44,10 +43,10 @@ class Pokemon:
     def aprender_movimiento(self, movimiento):
         """Añade un movimiento solo si coincide con el tipo del Pokémon"""
         if movimiento.tipo.lower() != self.tipo:
-            print(f"  {self.__nombre} no puede aprender {movimiento.nombre}")
-            # TODO: LANZAR EXCEPTION
-            print(f"   (Es tipo {self.tipo}, pero {movimiento.nombre} es tipo {movimiento.tipo})")
-            return False
+            raise ValueError(
+                f"{self.__nombre} no puede aprender {movimiento.nombre}. "
+                f"Es tipo {self.tipo}, pero {movimiento.nombre} es tipo {movimiento.tipo}"
+            )
         
         self.movimientos.append(movimiento)
         return True
@@ -60,11 +59,12 @@ class Pokemon:
         
         movimiento = random.choice(self.movimientos)
         
-        # Tu fórmula: daño = ((ataque + potencia) - defensa_enemigo / 2)
+        # Fórmula: daño = ((ataque + potencia) - defensa_enemigo / 2)
         daño = max(1, (self.ataque + movimiento.potencia) - (enemigo.defensa // 2))
         
         enemigo.hp -= daño
-        if enemigo.hp < 0: enemigo.hp = 0
+        if enemigo.hp < 0: 
+            enemigo.hp = 0
         
         print(f" {self.__nombre} usa {movimiento.nombre} contra {enemigo.get_nombre()}!")
         print(f"   Causa {daño} de daño!")
@@ -103,18 +103,31 @@ peluquin_volador = Movimiento("Peluquín Volador", "aire", 30)
 lluvia_de_billetes = Movimiento("Lluvia de Billetes", "aire", 45)
 twit = Movimiento("Twit basado", "aire", 25)
 
+
+# --- Subclases por tipo ---
 class PokemonFuego(Pokemon):
+    TIPO = "fuego"
+    
     def __init__(self, nombre, hp, ataque, defensa, movimientos):
-        super().__init__(nombre, "fuego", hp, ataque, defensa, movimientos)
-        
+        super().__init__(nombre, hp, ataque, defensa, movimientos)
+
+
 class PokemonAgua(Pokemon):
+    TIPO = "agua"
+    
     def __init__(self, nombre, hp, ataque, defensa, movimientos):
-        super().__init__(nombre, "agua", hp, ataque, defensa, movimientos)
-        
+        super().__init__(nombre, hp, ataque, defensa, movimientos)
+
+
 class PokemonTierra(Pokemon):
+    TIPO = "tierra"
+    
     def __init__(self, nombre, hp, ataque, defensa, movimientos):
-        super().__init__(nombre, "tierra", hp, ataque, defensa, movimientos)
-        
+        super().__init__(nombre, hp, ataque, defensa, movimientos)
+
+
 class PokemonAire(Pokemon):
+    TIPO = "aire"
+    
     def __init__(self, nombre, hp, ataque, defensa, movimientos):
-        super().__init__(nombre, "aire", hp, ataque, defensa, movimientos)
+        super().__init__(nombre, hp, ataque, defensa, movimientos)
