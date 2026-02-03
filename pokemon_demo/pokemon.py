@@ -12,18 +12,20 @@ class Movimiento:
     def nombre(self, nombre):
         self._nombre = nombre
 
+
 class Pokemon:
-    # Tipo base que será sobrescrito por las subclases
-    TIPO = None
+    # Tipos válidos de Pokémon
+    TIPOS_VALIDOS = ['agua', 'fuego', 'tierra', 'aire']
     
     __nombre = None
     
-    def __init__(self, nombre, hp, ataque, defensa, movimientos):
-        if self.TIPO is None:
-            raise TypeError("No se puede poner Pokemon directamente. Usa PokemonFuego, PokemonAgua, etc.")
+    def __init__(self, nombre, tipo, hp, ataque, defensa, movimientos):
+        # Validar que el tipo sea válido
+        if tipo.lower() not in self.TIPOS_VALIDOS:
+            raise ValueError(f"Tipo inválido. Debe ser uno de: {', '.join(self.TIPOS_VALIDOS)}")
         
         self.__nombre = nombre
-        self.tipo = self.TIPO
+        self.tipo = tipo.lower()
         self.hp = hp
         self.hp_max = hp
         self.ataque = ataque
@@ -43,10 +45,9 @@ class Pokemon:
     def aprender_movimiento(self, movimiento):
         """Añade un movimiento solo si coincide con el tipo del Pokémon"""
         if movimiento.tipo.lower() != self.tipo:
-            raise ValueError(
-                f"{self.__nombre} no puede aprender {movimiento.nombre}. "
-                f"Es tipo {self.tipo}, pero {movimiento.nombre} es tipo {movimiento.tipo}"
-            )
+            print(f"  {self.__nombre} no puede aprender {movimiento.nombre}")
+            print(f"   (Es tipo {self.tipo}, pero {movimiento.nombre} es tipo {movimiento.tipo})")
+            return False
         
         self.movimientos.append(movimiento)
         return True
@@ -106,28 +107,20 @@ twit = Movimiento("Twit basado", "aire", 25)
 
 # --- Subclases por tipo ---
 class PokemonFuego(Pokemon):
-    TIPO = "fuego"
-    
     def __init__(self, nombre, hp, ataque, defensa, movimientos):
-        super().__init__(nombre, hp, ataque, defensa, movimientos)
+        super().__init__(nombre, "fuego", hp, ataque, defensa, movimientos)
 
 
 class PokemonAgua(Pokemon):
-    TIPO = "agua"
-    
     def __init__(self, nombre, hp, ataque, defensa, movimientos):
-        super().__init__(nombre, hp, ataque, defensa, movimientos)
+        super().__init__(nombre, "agua", hp, ataque, defensa, movimientos)
 
 
 class PokemonTierra(Pokemon):
-    TIPO = "tierra"
-    
     def __init__(self, nombre, hp, ataque, defensa, movimientos):
-        super().__init__(nombre, hp, ataque, defensa, movimientos)
+        super().__init__(nombre, "tierra", hp, ataque, defensa, movimientos)
 
 
 class PokemonAire(Pokemon):
-    TIPO = "aire"
-    
     def __init__(self, nombre, hp, ataque, defensa, movimientos):
-        super().__init__(nombre, hp, ataque, defensa, movimientos)
+        super().__init__(nombre, "aire", hp, ataque, defensa, movimientos)
