@@ -1,8 +1,8 @@
 import pandas as pd
 import json
 
-RUTA_HABILIDADES = "habilidades.json"
-RUTA_ENTIDADES   = "entidades.json"
+RUTA_HABILIDADES = "data/habilidades_data.json"
+RUTA_ENTIDADES   = "data/entidades.json"
 
 
 # _____________________

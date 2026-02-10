@@ -1,4 +1,4 @@
-from entidades import *
+from pokemon import *
 import random
 import time
 from data.filtro_datos import *
