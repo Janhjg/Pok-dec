@@ -1,0 +1,31 @@
+{
+  "habilidades": [
+    { "nombre": "Espadazo Devastador",      "tipo": "hierro",    "potencia": 85,  "descripcion": "Un golpe brutal con espada que parte armaduras" },
+    { "nombre": "Carga de Caballero",        "tipo": "hierro",    "potencia": 100, "descripcion": "Embestida a plena velocidad con lanza en ristre" },
+    { "nombre": "Golpe de Escudo",           "tipo": "hierro",    "potencia": 50,  "descripcion": "Un escudazo que aturde al enemigo" },
+    { "nombre": "Tajo Ejecutor",             "tipo": "hierro",    "potencia": 120, "descripcion": "Un tajo descendente que aplasta al rival con todo el peso del acero" },
+    { "nombre": "Martillo de Guerra",        "tipo": "hierro",    "potencia": 95,  "descripcion": "Un mazazo que hace temblar el suelo al impactar" },
+    { "nombre": "Lluvia de Flechas",         "tipo": "hierro",    "potencia": 70,  "descripcion": "Una andanada de flechas que no da respiro al enemigo" },
+
+    { "nombre": "Bola de Fuego Arcana",      "tipo": "arcano",    "potencia": 110, "descripcion": "Un proyectil mágico que explota al impactar" },
+    { "nombre": "Ventisca Helada",           "tipo": "arcano",    "potencia": 90,  "descripcion": "Una ráfaga de hielo mágico que congela al rival" },
+    { "nombre": "Tormenta de Relampagos",    "tipo": "arcano",    "potencia": 70,  "descripcion": "Rayos conjurados que caen sobre el enemigo" },
+    { "nombre": "Nova Arcana",               "tipo": "arcano",    "potencia": 130, "descripcion": "Una explosion de energia pura que arrasa todo a su alrededor" },
+    { "nombre": "Invocacion de Sombras",     "tipo": "arcano",    "potencia": 85,  "descripcion": "Sombras vivientes que atacan al enemigo desde todos los angulos" },
+    { "nombre": "Prision de Cristal",        "tipo": "arcano",    "potencia": 75,  "descripcion": "Atrapa al enemigo en un cristal magico que lo tritura lentamente" },
+
+    { "nombre": "Mordisco Draconico",        "tipo": "bestia",    "potencia": 105, "descripcion": "Las fauces del dragon se cierran con fuerza aplastante" },
+    { "nombre": "Aliento de Fuego",          "tipo": "bestia",    "potencia": 95,  "descripcion": "Una llamarada que calcina todo lo que toca" },
+    { "nombre": "Zarpazo Salvaje",           "tipo": "bestia",    "potencia": 60,  "descripcion": "Garras afiladas que desgarran carne y metal" },
+    { "nombre": "Pisotón Colosal",           "tipo": "bestia",    "potencia": 115, "descripcion": "El peso de la bestia aplasta al rival contra el suelo" },
+    { "nombre": "Cola Demoledora",           "tipo": "bestia",    "potencia": 80,  "descripcion": "Un golpe de cola que lanza al enemigo por los aires" },
+    { "nombre": "Rugido del Pantano",        "tipo": "bestia",    "potencia": 65,  "descripcion": "Un rugido ensordecedor que desorienta al oponente" },
+
+    { "nombre": "Toque Espectral",           "tipo": "sombra",    "potencia": 80,  "descripcion": "Dedos fantasmales que atraviesan la armadura" },
+    { "nombre": "Maldicion del No-Muerto",   "tipo": "sombra",    "potencia": 95,  "descripcion": "Una maldicion que pudre el cuerpo desde dentro" },
+    { "nombre": "Daga en la Oscuridad",      "tipo": "sombra",    "potencia": 65,  "descripcion": "Un ataque furtivo desde las sombras al cuello" },
+    { "nombre": "Grito del Averno",          "tipo": "sombra",    "potencia": 110, "descripcion": "Un alarido que paraliza el alma del oponente" },
+    { "nombre": "Abrazo de la Muerte",       "tipo": "sombra",    "potencia": 120, "descripcion": "La muerte misma envuelve al enemigo y drena su esencia vital" },
+    { "nombre": "Sombras Devoradoras",       "tipo": "sombra",    "potencia": 75,  "descripcion": "Las sombras cobran vida y muerden al enemigo sin cesar" }
+  ]
+}
