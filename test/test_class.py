@@ -1,5 +1,5 @@
 import pytest
-from pokemon_demo.pokemon import *
+from pokemon import *
 
 class TestMovimiento:
     
