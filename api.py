@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+import random
 from pokemon import *
 from main import *
 from data.filtro_datos import *
@@ -13,12 +14,12 @@ app = FastAPI(
 )
 
 # ____________________________________________
-
 #  Cargar datos al iniciar
 # ____________________________________________
 habilidades_dict = cargar_habilidades()
 entidades_dict = cargar_entidades(habilidades_dict)
-datos_guardados = read("data/entidades.json")
+
+# El gestor ahora se encarga de inyectar los datos del JSON en entidades_dict
 gestor_datos.cargar_todo_al_inicio(entidades_dict, habilidades_dict)
 
 class NuevaEntidad(BaseModel):
@@ -34,11 +35,10 @@ class NuevaEntidad(BaseModel):
     mana: int
 
 # ____________________________________________
-
 #  Helpers
 # ____________________________________________
 def entidad_to_dict(e):
-    """Convierte Entidad a diccionario para respuesta."""
+    """Convierte Entidad a diccionario para respuesta de la API."""
     return {
         "id": e.id,
         "nombre": e.get_nombre(),
@@ -64,7 +64,6 @@ def entidad_to_dict(e):
         ]
     }
 
-
 # ─────────────────────────────────────────────
 #  ENDPOINTS
 # ─────────────────────────────────────────────
@@ -84,7 +83,6 @@ def root():
         }
     }
 
-
 @app.get("/entidades")
 def listar_entidades():
     """Lista todas las entidades con información básica."""
@@ -98,15 +96,12 @@ def listar_entidades():
         for e in entidades_dict.values()
     ]
 
-
 @app.get("/entidades/{id}")
 def obtener_entidad(id: str):
     """Obtiene información completa de una entidad por su ID."""
     if id not in entidades_dict:
         return {"error": f"Entidad '{id}' no encontrada"}
-    
     return entidad_to_dict(entidades_dict[id])
-
 
 @app.get("/habilidades")
 def listar_habilidades():
@@ -122,120 +117,54 @@ def listar_habilidades():
         for h in habilidades_dict.values()
     ]
 
-
 @app.get("/filtrar/tipo/{tipo}")
 def filtrar_tipo(tipo: str):
-    """Filtra entidades por tipo (hierro, arcano, bestia, sombra)."""
+    """Filtra entidades por tipo."""
     df = filtrar_por_tipo(tipo)
     if df.empty:
         return {"error": f"No hay entidades del tipo '{tipo}'"}
     
     ids = df['id'].tolist()
+    # Solo devolvemos los que están actualmente cargados en memoria
     return [
         {
-            "id": e.id,
-            "nombre": e.get_nombre(),
-            "tipo": e.tipo,
-            "descripcion": e.descripcion
+            "id": entidades_dict[eid].id,
+            "nombre": entidades_dict[eid].get_nombre(),
+            "tipo": entidades_dict[eid].tipo,
+            "descripcion": entidades_dict[eid].descripcion
         }
-        for eid in ids
-        for e in [entidades_dict[eid]]
+        for eid in ids if eid in entidades_dict
     ]
-
-
-@app.get("/filtrar/estadistica/{stat}/{minimo}")
-def filtrar_estadistica(stat: str, minimo: int):
-    """Filtra entidades por estadística mínima."""
-    stats_validas = ['hp', 'ataque', 'defensa', 'velocidad', 'evasion', 'mana']
-    if stat not in stats_validas:
-        return {"error": f"Estadística '{stat}' no válida. Opciones: {stats_validas}"}
-    
-    df = filtrar_por_estadistica(stat, minimo)
-    if df.empty:
-        return {"error": f"No hay entidades con {stat} >= {minimo}"}
-    
-    ids = df['id'].tolist()
-    return [
-        {
-            "id": e.id,
-            "nombre": e.get_nombre(),
-            "tipo": e.tipo,
-            "descripcion": e.descripcion
-        }
-        for eid in ids
-        for e in [entidades_dict[eid]]
-    ]
-
-
-@app.get("/buscar/{termino}")
-def buscar(termino: str):
-    """Busca entidades por nombre (búsqueda parcial)."""
-    df = buscar_entidades(termino)
-    if df.empty:
-        return {"error": f"No se encontraron entidades con '{termino}' en el nombre"}
-    
-    ids = df['id'].tolist()
-    return [
-        {
-            "id": e.id,
-            "nombre": e.get_nombre(),
-            "tipo": e.tipo,
-            "descripcion": e.descripcion
-        }
-        for eid in ids
-        for e in [entidades_dict[eid]]
-    ]
-
 
 @app.post("/combate")
 def iniciar_combate(data: dict):
-    """
-    Simula un combate entre dos entidades.
-    Body JSON: {"entidad1_id": "e001", "entidad2_id": "e002"}
-    """
+    """Simula un combate entre dos entidades."""
     entidad1_id = data.get("entidad1_id")
     entidad2_id = data.get("entidad2_id")
     
-    if not entidad1_id or not entidad2_id:
-        return {"error": "Se requieren 'entidad1_id' y 'entidad2_id'"}
-    
-    if entidad1_id not in entidades_dict:
-        return {"error": f"Entidad '{entidad1_id}' no encontrada"}
-    if entidad2_id not in entidades_dict:
-        return {"error": f"Entidad '{entidad2_id}' no encontrada"}
+    if entidad1_id not in entidades_dict or entidad2_id not in entidades_dict:
+        return {"error": "Una o ambas entidades no existen"}
     
     e1 = entidades_dict[entidad1_id]
     e2 = entidades_dict[entidad2_id]
     
-    # Usa la función compartida de main.py
     resultado = simular_combate(e1, e2)
-    
-    return {
-        "combatiente1": entidad_to_dict(entidades_dict[entidad1_id]),
-        "combatiente2": entidad_to_dict(entidades_dict[entidad2_id]),
-        "turnos_totales": resultado["turnos_totales"],
-        "log": resultado["log"],
-        "ganador": resultado["ganador"],
-        "ganador_id": resultado["ganador_id"],
-        "perdedor": resultado["perdedor"],
-        "perdedor_id": resultado["perdedor_id"]
-    }
-
+    return resultado
 
 @app.post("/entidades")
 def crear_entidad(datos: NuevaEntidad):
-    # 1. Validar si el ID ya existe
+    # 1. Validar duplicados
     if datos.id in entidades_dict:
         return {"error": f"El ID {datos.id} ya existe."}
 
-    # 2. Filtrar habilidades
+    # 2. Filtrar habilidades por tipo
     habs_del_mismo_tipo = [
         h for h in habilidades_dict.values() 
         if h.tipo == datos.tipo.lower()
     ]
     
     if not habs_del_mismo_tipo:
-        return {"error": f"No hay habilidades cargadas para el tipo '{datos.tipo}'"}
+        return {"error": f"No hay habilidades para el tipo '{datos.tipo}'"}
 
     # 3. Selección aleatoria
     cantidad = min(4, len(habs_del_mismo_tipo))
@@ -245,6 +174,7 @@ def crear_entidad(datos: NuevaEntidad):
     usar_clase = _SUBCLASES.get(datos.tipo.lower(), Entidad)
 
     try:
+        # 4. Crear instancia del objeto
         nueva_e = usar_clase(
             id=datos.id,
             nombre=datos.nombre,
@@ -258,8 +188,24 @@ def crear_entidad(datos: NuevaEntidad):
             descripcion=datos.descripcion
         )
         
-        datos_dict = entidad_to_dict(nueva_e)
-        gestor_datos.guardar_nueva_entidad(nueva_e, datos_dict, entidades_dict)
+        # 5. Diccionario específico para persistencia (Formato JSON)
+        # Importante: habilidades se guardan como lista de nombres (strings)
+        datos_json = {
+            "id": nueva_e.id,
+            "nombre": nueva_e.get_nombre(),
+            "tipo": nueva_e.tipo,
+            "hp": nueva_e.hp_max,
+            "ataque": nueva_e.ataque,
+            "defensa": nueva_e.defensa,
+            "velocidad": nueva_e.velocidad,
+            "evasion": nueva_e.evasion,
+            "mana": nueva_e.mana_max,
+            "habilidades": [h.nombre for h in nueva_e.habilidades],
+            "descripcion": nueva_e.descripcion
+        }
+        
+        # 6. Guardar en RAM y en JSON mediante el gestor
+        gestor_datos.guardar_nueva_entidad(nueva_e, datos_json, entidades_dict)
         
         return {
             "mensaje": f"Entidad '{nueva_e.get_nombre()}' creada y guardada.",

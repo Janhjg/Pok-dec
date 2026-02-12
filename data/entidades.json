@@ -289,92 +289,22 @@
       "descripcion": "Comanda ejercitos de muertos desde su trono de huesos en el corazon del cementerio eterno."
     },
     {
-      "id": "00000000",
-      "nombre": "lalala",
-      "tipo": "sombra",
-      "descripcion": "hierro",
-      "stats": {
-        "hp": 0,
-        "ataque": 0,
-        "defensa": 0,
-        "velocidad": 0,
-        "evasion": 0,
-        "mana": 0
-      },
-      "habilidades": [
-        {
-          "nombre": "Daga en la Oscuridad",
-          "tipo": "sombra",
-          "potencia": 65,
-          "coste_mana": 15,
-          "descripcion": "Un ataque furtivo desde las sombras al cuello"
-        },
-        {
-          "nombre": "Abrazo de la Muerte",
-          "tipo": "sombra",
-          "potencia": 120,
-          "coste_mana": 45,
-          "descripcion": "La muerte misma envuelve al enemigo y drena su esencia vital"
-        },
-        {
-          "nombre": "Sombras Devoradoras",
-          "tipo": "sombra",
-          "potencia": 75,
-          "coste_mana": 20,
-          "descripcion": "Las sombras cobran vida y muerden al enemigo sin cesar"
-        },
-        {
-          "nombre": "Maldicion del No-Muerto",
-          "tipo": "sombra",
-          "potencia": 95,
-          "coste_mana": 30,
-          "descripcion": "Una maldicion que pudre el cuerpo desde dentro"
-        }
-      ]
-    }
-  ],
-  "string": {
-    "id": "string",
-    "nombre": "string",
-    "tipo": "sombra",
-    "descripcion": "string",
-    "stats": {
+      "id": "0000",
+      "nombre": "string",
+      "tipo": "hierro",
       "hp": 0,
       "ataque": 0,
       "defensa": 0,
       "velocidad": 0,
       "evasion": 0,
-      "mana": 0
-    },
-    "habilidades": [
-      {
-        "nombre": "Grito del Averno",
-        "tipo": "sombra",
-        "potencia": 110,
-        "coste_mana": 35,
-        "descripcion": "Un alarido que paraliza el alma del oponente"
-      },
-      {
-        "nombre": "Daga en la Oscuridad",
-        "tipo": "sombra",
-        "potencia": 65,
-        "coste_mana": 15,
-        "descripcion": "Un ataque furtivo desde las sombras al cuello"
-      },
-      {
-        "nombre": "Maldicion del No-Muerto",
-        "tipo": "sombra",
-        "potencia": 95,
-        "coste_mana": 30,
-        "descripcion": "Una maldicion que pudre el cuerpo desde dentro"
-      },
-      {
-        "nombre": "Sombras Devoradoras",
-        "tipo": "sombra",
-        "potencia": 75,
-        "coste_mana": 20,
-        "descripcion": "Las sombras cobran vida y muerden al enemigo sin cesar"
-      }
-    ]
-  }
+      "mana": 0,
+      "habilidades": [
+        "Golpe de Escudo",
+        "Lluvia de Flechas",
+        "Espadazo Devastador",
+        "Carga de Caballero"
+      ],
+      "descripcion": "string"
+    }
+  ]
 }
