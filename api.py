@@ -1,7 +1,11 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
 from pokemon import *
 from main import *
 from data.filtro_datos import *
+from data.Persistencia_datos import *
+import gestor_datos
+
 app = FastAPI(
     title="Zteria Battle API",
     description="API para gestionar entidades y combates medievales",
@@ -14,7 +18,20 @@ app = FastAPI(
 # ____________________________________________
 habilidades_dict = cargar_habilidades()
 entidades_dict = cargar_entidades(habilidades_dict)
+datos_guardados = read("data/entidades.json")
+gestor_datos.cargar_todo_al_inicio(entidades_dict, habilidades_dict)
 
+class NuevaEntidad(BaseModel):
+    id: str
+    nombre: str
+    tipo: str
+    descripcion: str
+    hp: int
+    ataque: int
+    defensa: int
+    velocidad: int
+    evasion: int
+    mana: int
 
 # ____________________________________________
 
@@ -203,36 +220,51 @@ def iniciar_combate(data: dict):
         "perdedor": resultado["perdedor"],
         "perdedor_id": resultado["perdedor_id"]
     }
+
+
+@app.post("/entidades")
+def crear_entidad(datos: NuevaEntidad):
+    # 1. Validar si el ID ya existe
+    if datos.id in entidades_dict:
+        return {"error": f"El ID {datos.id} ya existe."}
+
+    # 2. Filtrar habilidades
+    habs_del_mismo_tipo = [
+        h for h in habilidades_dict.values() 
+        if h.tipo == datos.tipo.lower()
+    ]
     
-@app.post("/crear_entidad")
-def crear_entidad():
-    entidad_id = data.get("id")
-    
-    if entidad_id in entidades_dict:
-        return{"error": "Ese id ya existe"}
-    
-    habilidades_nombres = data.get("habilidades_id", [])
-    habilidades_obj = []
-    for nombre in habilidades_nombres:
-        if nombre in habilidades_dict:
-            habilidades_obj.append(habilidades_dict[nombre])
-            
-    nueva_e = Entidad(
-        entidad_id,
-        data.get("nombre"),
-        data.get("tipo"),
-        data.get("descripcion"),
-        data.get("hp"),
-        data.get("ataque"),
-        data.get("defensa"),
-        data.get("velocidad"),
-        data.get("evasion"),
-        data.get("mana"),
-        habilidades_obj
-    )
-    
-    return {
-        "estado": "Entidad creada con éxito",
-        "id": entidad_id,
-        "nombre": data.get("nombre")
-    }
+    if not habs_del_mismo_tipo:
+        return {"error": f"No hay habilidades cargadas para el tipo '{datos.tipo}'"}
+
+    # 3. Selección aleatoria
+    cantidad = min(4, len(habs_del_mismo_tipo))
+    habilidades_seleccionadas = random.sample(habs_del_mismo_tipo, k=cantidad)
+
+    from pokemon import _SUBCLASES, Entidad
+    usar_clase = _SUBCLASES.get(datos.tipo.lower(), Entidad)
+
+    try:
+        nueva_e = usar_clase(
+            id=datos.id,
+            nombre=datos.nombre,
+            hp=datos.hp,
+            ataque=datos.ataque,
+            defensa=datos.defensa,
+            velocidad=datos.velocidad,
+            evasion=datos.evasion,
+            mana=datos.mana,
+            habilidades=habilidades_seleccionadas,
+            descripcion=datos.descripcion
+        )
+        
+        datos_dict = entidad_to_dict(nueva_e)
+        gestor_datos.guardar_nueva_entidad(nueva_e, datos_dict, entidades_dict)
+        
+        return {
+            "mensaje": f"Entidad '{nueva_e.get_nombre()}' creada y guardada.",
+            "habilidades": [h.nombre for h in habilidades_seleccionadas]
+        }
+
+    except Exception as e:
+        return {"error": f"Error al crear la entidad: {str(e)}"}

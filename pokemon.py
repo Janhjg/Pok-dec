@@ -214,10 +214,6 @@ def cargar_entidades(habilidades: dict = None) -> dict:
     }
 
 def cargar_entidades_filtradas(tabla_filtrada, habilidades: dict = None) -> dict:
-    """
-    Igual que cargar_entidades() pero recibe una tabla ya filtrada
-    (resultado de filtrar_por_tipo, filtrar_por_estadistica, etc.)
-    """
     if habilidades is None:
         habilidades = cargar_habilidades()
     return {
@@ -317,3 +313,10 @@ def simular_combate(e1: Entidad, e2: Entidad) -> dict:
         "turnos_totales": turno - 1,
         "log": combate_log
     }
+    
+# ___________________________________________
+
+#  CREAR ENTIDADES
+
+# ______________________________________________
+

@@ -1,100 +1,380 @@
 {
   "entidades": [
     {
-      "id": "e001", "nombre": "Ser Caballero de Acero", "tipo": "hierro",
-      "hp": 380, "ataque": 90, "defensa": 85, "velocidad": 40, "evasion": 10, "mana": 100,
-      "habilidades": ["Espadazo Devastador", "Carga de Caballero", "Golpe de Escudo", "Tajo Ejecutor"],
+      "id": "e001",
+      "nombre": "Ser Caballero de Acero",
+      "tipo": "hierro",
+      "hp": 380,
+      "ataque": 90,
+      "defensa": 85,
+      "velocidad": 40,
+      "evasion": 10,
+      "mana": 100,
+      "habilidades": [
+        "Espadazo Devastador",
+        "Carga de Caballero",
+        "Golpe de Escudo",
+        "Tajo Ejecutor"
+      ],
       "descripcion": "Un paladin legendario forjado en mil batallas. Su armadura nunca ha sido penetrada y su voluntad es irrompible."
     },
     {
-      "id": "e002", "nombre": "Golem de Piedra Antigua", "tipo": "hierro",
-      "hp": 500, "ataque": 75, "defensa": 110, "velocidad": 15, "evasion": 3, "mana": 60,
-      "habilidades": ["Carga de Caballero", "Golpe de Escudo", "Tajo Ejecutor", "Martillo de Guerra"],
-      "descripcion": "Construido por enanos hace siglos. Lento como una montaña, pero igual de inamovible."
+      "id": "e002",
+      "nombre": "Golem de Piedra Antigua",
+      "tipo": "hierro",
+      "hp": 500,
+      "ataque": 75,
+      "defensa": 110,
+      "velocidad": 15,
+      "evasion": 3,
+      "mana": 60,
+      "habilidades": [
+        "Carga de Caballero",
+        "Golpe de Escudo",
+        "Tajo Ejecutor",
+        "Martillo de Guerra"
+      ],
+      "descripcion": "Construido por enanos hace siglos. Lento como una monta\u00c3\u00b1a, pero igual de inamovible."
     },
     {
-      "id": "e003", "nombre": "El Gran Inquisidor", "tipo": "hierro",
-      "hp": 350, "ataque": 95, "defensa": 80, "velocidad": 55, "evasion": 15, "mana": 90,
-      "habilidades": ["Espadazo Devastador", "Tajo Ejecutor", "Martillo de Guerra", "Lluvia de Flechas"],
+      "id": "e003",
+      "nombre": "El Gran Inquisidor",
+      "tipo": "hierro",
+      "hp": 350,
+      "ataque": 95,
+      "defensa": 80,
+      "velocidad": 55,
+      "evasion": 15,
+      "mana": 90,
+      "habilidades": [
+        "Espadazo Devastador",
+        "Tajo Ejecutor",
+        "Martillo de Guerra",
+        "Lluvia de Flechas"
+      ],
       "descripcion": "Juez, verdugo y guerrero. Su espada dicta sentencia sin apelacion posible."
     },
     {
-      "id": "e004", "nombre": "Valkiria de Hierro", "tipo": "hierro",
-      "hp": 330, "ataque": 100, "defensa": 70, "velocidad": 70, "evasion": 20, "mana": 110,
-      "habilidades": ["Carga de Caballero", "Espadazo Devastador", "Lluvia de Flechas", "Golpe de Escudo"],
+      "id": "e004",
+      "nombre": "Valkiria de Hierro",
+      "tipo": "hierro",
+      "hp": 330,
+      "ataque": 100,
+      "defensa": 70,
+      "velocidad": 70,
+      "evasion": 20,
+      "mana": 110,
+      "habilidades": [
+        "Carga de Caballero",
+        "Espadazo Devastador",
+        "Lluvia de Flechas",
+        "Golpe de Escudo"
+      ],
       "descripcion": "Una guerrera celestial caida que ahora pelea por el mejor postor."
     },
     {
-      "id": "e005", "nombre": "Mago Supremo Velthar", "tipo": "arcano",
-      "hp": 270, "ataque": 115, "defensa": 40, "velocidad": 60, "evasion": 25, "mana": 200,
-      "habilidades": ["Bola de Fuego Arcana", "Ventisca Helada", "Tormenta de Relampagos", "Nova Arcana"],
+      "id": "e005",
+      "nombre": "Mago Supremo Velthar",
+      "tipo": "arcano",
+      "hp": 270,
+      "ataque": 115,
+      "defensa": 40,
+      "velocidad": 60,
+      "evasion": 25,
+      "mana": 200,
+      "habilidades": [
+        "Bola de Fuego Arcana",
+        "Ventisca Helada",
+        "Tormenta de Relampagos",
+        "Nova Arcana"
+      ],
       "descripcion": "Un hechicero que ha dominado las tres escuelas de magia elemental. Su mana parece infinito."
     },
     {
-      "id": "e006", "nombre": "Hechicera de la Torre Rota", "tipo": "arcano",
-      "hp": 290, "ataque": 105, "defensa": 45, "velocidad": 55, "evasion": 30, "mana": 170,
-      "habilidades": ["Ventisca Helada", "Tormenta de Relampagos", "Invocacion de Sombras", "Prision de Cristal"],
+      "id": "e006",
+      "nombre": "Hechicera de la Torre Rota",
+      "tipo": "arcano",
+      "hp": 290,
+      "ataque": 105,
+      "defensa": 45,
+      "velocidad": 55,
+      "evasion": 30,
+      "mana": 170,
+      "habilidades": [
+        "Ventisca Helada",
+        "Tormenta de Relampagos",
+        "Invocacion de Sombras",
+        "Prision de Cristal"
+      ],
       "descripcion": "Una bruja desterrada cuya magia se corrompio tras un pacto oscuro."
     },
     {
-      "id": "e007", "nombre": "Archimago Kael el Errante", "tipo": "arcano",
-      "hp": 250, "ataque": 120, "defensa": 35, "velocidad": 65, "evasion": 35, "mana": 220,
-      "habilidades": ["Nova Arcana", "Bola de Fuego Arcana", "Prision de Cristal", "Tormenta de Relampagos"],
+      "id": "e007",
+      "nombre": "Archimago Kael el Errante",
+      "tipo": "arcano",
+      "hp": 250,
+      "ataque": 120,
+      "defensa": 35,
+      "velocidad": 65,
+      "evasion": 35,
+      "mana": 220,
+      "habilidades": [
+        "Nova Arcana",
+        "Bola de Fuego Arcana",
+        "Prision de Cristal",
+        "Tormenta de Relampagos"
+      ],
       "descripcion": "Expulsado de la Gran Academia, viaja solo buscando poder sin limites."
     },
     {
-      "id": "e008", "nombre": "Oraculo de Cristal Viviente", "tipo": "arcano",
-      "hp": 300, "ataque": 100, "defensa": 50, "velocidad": 50, "evasion": 28, "mana": 180,
-      "habilidades": ["Prision de Cristal", "Invocacion de Sombras", "Ventisca Helada", "Nova Arcana"],
+      "id": "e008",
+      "nombre": "Oraculo de Cristal Viviente",
+      "tipo": "arcano",
+      "hp": 300,
+      "ataque": 100,
+      "defensa": 50,
+      "velocidad": 50,
+      "evasion": 28,
+      "mana": 180,
+      "habilidades": [
+        "Prision de Cristal",
+        "Invocacion de Sombras",
+        "Ventisca Helada",
+        "Nova Arcana"
+      ],
       "descripcion": "Una entidad de pura magia cristalizada que predice y provoca la derrota del enemigo."
     },
     {
-      "id": "e009", "nombre": "Ignaroth el Dragon Carmesi", "tipo": "bestia",
-      "hp": 550, "ataque": 105, "defensa": 75, "velocidad": 50, "evasion": 12, "mana": 130,
-      "habilidades": ["Mordisco Draconico", "Aliento de Fuego", "Zarpazo Salvaje", "Cola Demoledora"],
+      "id": "e009",
+      "nombre": "Ignaroth el Dragon Carmesi",
+      "tipo": "bestia",
+      "hp": 550,
+      "ataque": 105,
+      "defensa": 75,
+      "velocidad": 50,
+      "evasion": 12,
+      "mana": 130,
+      "habilidades": [
+        "Mordisco Draconico",
+        "Aliento de Fuego",
+        "Zarpazo Salvaje",
+        "Cola Demoledora"
+      ],
       "descripcion": "El dragon mas temido del reino. Sus escamas resisten incluso el acero encantado."
     },
     {
-      "id": "e010", "nombre": "Manticora del Pantano", "tipo": "bestia",
-      "hp": 370, "ataque": 95, "defensa": 60, "velocidad": 65, "evasion": 20, "mana": 100,
-      "habilidades": ["Aliento de Fuego", "Zarpazo Salvaje", "Cola Demoledora", "Rugido del Pantano"],
+      "id": "e010",
+      "nombre": "Manticora del Pantano",
+      "tipo": "bestia",
+      "hp": 370,
+      "ataque": 95,
+      "defensa": 60,
+      "velocidad": 65,
+      "evasion": 20,
+      "mana": 100,
+      "habilidades": [
+        "Aliento de Fuego",
+        "Zarpazo Salvaje",
+        "Cola Demoledora",
+        "Rugido del Pantano"
+      ],
       "descripcion": "Una bestia con cabeza de hombre, cuerpo de leon y cola de escorpion."
     },
     {
-      "id": "e011", "nombre": "Grifo Tempestuoso", "tipo": "bestia",
-      "hp": 340, "ataque": 100, "defensa": 55, "velocidad": 85, "evasion": 30, "mana": 110,
-      "habilidades": ["Zarpazo Salvaje", "Cola Demoledora", "Pisoton Colosal", "Mordisco Draconico"],
+      "id": "e011",
+      "nombre": "Grifo Tempestuoso",
+      "tipo": "bestia",
+      "hp": 340,
+      "ataque": 100,
+      "defensa": 55,
+      "velocidad": 85,
+      "evasion": 30,
+      "mana": 110,
+      "habilidades": [
+        "Zarpazo Salvaje",
+        "Cola Demoledora",
+        "Pisoton Colosal",
+        "Mordisco Draconico"
+      ],
       "descripcion": "Mitad aguila, mitad leon. Caza en picado a velocidades que no se ven venir."
     },
     {
-      "id": "e012", "nombre": "Behemoth de las Profundidades", "tipo": "bestia",
-      "hp": 620, "ataque": 85, "defensa": 95, "velocidad": 20, "evasion": 5, "mana": 80,
-      "habilidades": ["Pisoton Colosal", "Cola Demoledora", "Rugido del Pantano", "Mordisco Draconico"],
+      "id": "e012",
+      "nombre": "Behemoth de las Profundidades",
+      "tipo": "bestia",
+      "hp": 620,
+      "ataque": 85,
+      "defensa": 95,
+      "velocidad": 20,
+      "evasion": 5,
+      "mana": 80,
+      "habilidades": [
+        "Pisoton Colosal",
+        "Cola Demoledora",
+        "Rugido del Pantano",
+        "Mordisco Draconico"
+      ],
       "descripcion": "Una criatura prehistorica que destruye ciudades por accidente cuando camina."
     },
     {
-      "id": "e013", "nombre": "Rey Liche Morvath", "tipo": "sombra",
-      "hp": 310, "ataque": 100, "defensa": 65, "velocidad": 45, "evasion": 22, "mana": 160,
-      "habilidades": ["Toque Espectral", "Maldicion del No-Muerto", "Grito del Averno", "Abrazo de la Muerte"],
+      "id": "e013",
+      "nombre": "Rey Liche Morvath",
+      "tipo": "sombra",
+      "hp": 310,
+      "ataque": 100,
+      "defensa": 65,
+      "velocidad": 45,
+      "evasion": 22,
+      "mana": 160,
+      "habilidades": [
+        "Toque Espectral",
+        "Maldicion del No-Muerto",
+        "Grito del Averno",
+        "Abrazo de la Muerte"
+      ],
       "descripcion": "Un antiguo rey que vendio su alma para vivir eternamente como no-muerto."
     },
     {
-      "id": "e014", "nombre": "Asesino de la Hermandad Oscura", "tipo": "sombra",
-      "hp": 260, "ataque": 120, "defensa": 35, "velocidad": 95, "evasion": 40, "mana": 120,
-      "habilidades": ["Daga en la Oscuridad", "Toque Espectral", "Sombras Devoradoras", "Maldicion del No-Muerto"],
+      "id": "e014",
+      "nombre": "Asesino de la Hermandad Oscura",
+      "tipo": "sombra",
+      "hp": 260,
+      "ataque": 120,
+      "defensa": 35,
+      "velocidad": 95,
+      "evasion": 40,
+      "mana": 120,
+      "habilidades": [
+        "Daga en la Oscuridad",
+        "Toque Espectral",
+        "Sombras Devoradoras",
+        "Maldicion del No-Muerto"
+      ],
       "descripcion": "Un sicario sin rostro. Nadie que lo haya visto ha sobrevivido para contarlo."
     },
     {
-      "id": "e015", "nombre": "Banshee de los Bosques Malditos", "tipo": "sombra",
-      "hp": 280, "ataque": 110, "defensa": 40, "velocidad": 75, "evasion": 35, "mana": 140,
-      "habilidades": ["Grito del Averno", "Sombras Devoradoras", "Toque Espectral", "Abrazo de la Muerte"],
+      "id": "e015",
+      "nombre": "Banshee de los Bosques Malditos",
+      "tipo": "sombra",
+      "hp": 280,
+      "ataque": 110,
+      "defensa": 40,
+      "velocidad": 75,
+      "evasion": 35,
+      "mana": 140,
+      "habilidades": [
+        "Grito del Averno",
+        "Sombras Devoradoras",
+        "Toque Espectral",
+        "Abrazo de la Muerte"
+      ],
       "descripcion": "Un espiritu femenino cuyo llanto condena a quienes lo escuchan."
     },
     {
-      "id": "e016", "nombre": "Senor de los No-Muertos Kharos", "tipo": "sombra",
-      "hp": 420, "ataque": 95, "defensa": 70, "velocidad": 35, "evasion": 18, "mana": 150,
-      "habilidades": ["Abrazo de la Muerte", "Maldicion del No-Muerto", "Grito del Averno", "Daga en la Oscuridad"],
+      "id": "e016",
+      "nombre": "Senor de los No-Muertos Kharos",
+      "tipo": "sombra",
+      "hp": 420,
+      "ataque": 95,
+      "defensa": 70,
+      "velocidad": 35,
+      "evasion": 18,
+      "mana": 150,
+      "habilidades": [
+        "Abrazo de la Muerte",
+        "Maldicion del No-Muerto",
+        "Grito del Averno",
+        "Daga en la Oscuridad"
+      ],
       "descripcion": "Comanda ejercitos de muertos desde su trono de huesos en el corazon del cementerio eterno."
+    },
+    {
+      "id": "00000000",
+      "nombre": "lalala",
+      "tipo": "sombra",
+      "descripcion": "hierro",
+      "stats": {
+        "hp": 0,
+        "ataque": 0,
+        "defensa": 0,
+        "velocidad": 0,
+        "evasion": 0,
+        "mana": 0
+      },
+      "habilidades": [
+        {
+          "nombre": "Daga en la Oscuridad",
+          "tipo": "sombra",
+          "potencia": 65,
+          "coste_mana": 15,
+          "descripcion": "Un ataque furtivo desde las sombras al cuello"
+        },
+        {
+          "nombre": "Abrazo de la Muerte",
+          "tipo": "sombra",
+          "potencia": 120,
+          "coste_mana": 45,
+          "descripcion": "La muerte misma envuelve al enemigo y drena su esencia vital"
+        },
+        {
+          "nombre": "Sombras Devoradoras",
+          "tipo": "sombra",
+          "potencia": 75,
+          "coste_mana": 20,
+          "descripcion": "Las sombras cobran vida y muerden al enemigo sin cesar"
+        },
+        {
+          "nombre": "Maldicion del No-Muerto",
+          "tipo": "sombra",
+          "potencia": 95,
+          "coste_mana": 30,
+          "descripcion": "Una maldicion que pudre el cuerpo desde dentro"
+        }
+      ]
     }
-  ]
+  ],
+  "string": {
+    "id": "string",
+    "nombre": "string",
+    "tipo": "sombra",
+    "descripcion": "string",
+    "stats": {
+      "hp": 0,
+      "ataque": 0,
+      "defensa": 0,
+      "velocidad": 0,
+      "evasion": 0,
+      "mana": 0
+    },
+    "habilidades": [
+      {
+        "nombre": "Grito del Averno",
+        "tipo": "sombra",
+        "potencia": 110,
+        "coste_mana": 35,
+        "descripcion": "Un alarido que paraliza el alma del oponente"
+      },
+      {
+        "nombre": "Daga en la Oscuridad",
+        "tipo": "sombra",
+        "potencia": 65,
+        "coste_mana": 15,
+        "descripcion": "Un ataque furtivo desde las sombras al cuello"
+      },
+      {
+        "nombre": "Maldicion del No-Muerto",
+        "tipo": "sombra",
+        "potencia": 95,
+        "coste_mana": 30,
+        "descripcion": "Una maldicion que pudre el cuerpo desde dentro"
+      },
+      {
+        "nombre": "Sombras Devoradoras",
+        "tipo": "sombra",
+        "potencia": 75,
+        "coste_mana": 20,
+        "descripcion": "Las sombras cobran vida y muerden al enemigo sin cesar"
+      }
+    ]
+  }
 }
