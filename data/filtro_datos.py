@@ -13,9 +13,8 @@ RUTA_ENTIDADES   = "data/entidades.json"
 def cargar_df_habilidades() -> pd.DataFrame:
     """Devuelve un DataFrame con todas las habilidades."""
     with open(RUTA_HABILIDADES, encoding="utf-8") as f:
-        datos = json.load(f)
+        datos = json.load(f) 
     return pd.DataFrame(datos["habilidades"])
-
 
 def cargar_df_entidades() -> pd.DataFrame:
     """

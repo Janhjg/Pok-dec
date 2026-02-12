@@ -70,75 +70,68 @@ def seleccionar_entidad(entidades: dict, titulo: str) -> Entidad:
         else:
             print("\n  Volviendo al listado...\n")
             listar_entidades(entidades)
-# ─────────────────────────────────────────────
-#  Combate
-# ─────────────────────────────────────────────
-def combate(e1: Entidad, e2: Entidad):
-    # Reiniciar stats
-    e1.hp   = e1.hp_max
-    e2.hp   = e2.hp_max
-    e1.mana = e1.mana_max
-    e2.mana = e2.mana_max
 
+# ______________________________________________
+
+#  Combate bonito ,usa simular_combate de pokemon.py
+# ______________________________________________
+
+def combate_con_ui(e1: Entidad, e2: Entidad):
+    """
+    Visual para simular_combate().
+    """
     limpiar()
     print(SEP)
-    print("         BATALLA POR ZTERIA")
+    print("         COMBATE POR ZTERIA")
     print(SEP)
     print(f"  {e1.get_nombre()}")
     print(f"            VS")
     print(f"  {e2.get_nombre()}")
     print(SEP)
+    input("\n  Pulsa ENTER para comenzar...")
 
-    # La velocidad determina quién ataca primero cada turno
-    # Si hay empate, orden aleatorio
-    turno = 1
-    combate_log = []
+    # Llamar a la lógica pura del combate
+    resultado = simular_combate(e1, e2)
 
-    while e1.esta_vivo() and e2.esta_vivo():
-        print(f"\n{SEP2}")
-        print(f"  Turno {turno}")
-        print(f"  {e1.get_nombre()}: HP {e1.hp}/{e1.hp_max} | MANA {e1.mana}/{e1.mana_max}")
-        print(f"  {e2.get_nombre()}: HP {e2.hp}/{e2.hp_max} | MANA {e2.mana}/{e2.mana_max}")
-        print(SEP2)
+    # Mostrar el combate turno a turno con delays
+    print("\n" + SEP2)
+    print("  INICIANDO COMBATE")
+    print(SEP2)
+    
+    turno_actual = 0
+    for entrada in resultado["log"]:
+        if entrada["turno"] != turno_actual:
+            turno_actual = entrada["turno"]
+            print(f"\n{SEP2}")
+            print(f"  Turno {turno_actual}")
+            print(SEP2)
 
-        # Ordenar por velocidad (mayor velocidad ataca primero)
-        if e1.velocidad > e2.velocidad:
-            orden = [e1, e2]
-        elif e2.velocidad > e1.velocidad:
-            orden = [e2, e1]
+        atacante = entrada["atacante"]
+        defensor = entrada["defensor"]
+        habilidad = entrada["habilidad"]
+        
+        if entrada["esquivado"]:
+            print(f"  >> {atacante} usa [{habilidad}]... ¡{defensor} lo esquiva!")
         else:
-            orden = random.sample([e1, e2], 2)   # empate → aleatorio
+            daño = entrada["daño"]
+            hp = entrada["hp_restante"]
+            print(f"  >> {atacante} usa [{habilidad}]")
+            print(f"     Causa {daño} de daño | {defensor} HP: {hp}")
+            
+            if hp <= 0:
+                print(f"\n  *** {defensor} ha caido en combate ***\n")
 
-        primero = orden[0]
-        print(f"  {primero.get_nombre()} ataca primero (VEL {primero.velocidad})\n")
+        time.sleep(0.8)
 
-        for atacante in orden:
-            defensor = e1 if atacante == e2 else e2
-            if atacante.esta_vivo():
-                atacante.atacar(defensor)
-                combate_log.append({
-                    "turno":       turno,
-                    "atacante":    atacante.get_nombre(),
-                    "defensor":    defensor.get_nombre(),
-                    "hp_restante": defensor.hp,
-                })
-                if not defensor.esta_vivo():
-                    break
-
-        time.sleep(1)
-        turno += 1
-
-    ganador  = e1 if e1.esta_vivo() else e2
-    perdedor = e2 if e1.esta_vivo() else e1
-
+    # Resultado final
     print(SEP)
-    print(f"  FIN DEL COMBATE — Turno {turno - 1}")
+    print(f"  FIN DEL COMBATE — Turno {resultado['turnos_totales']}")
     print(SEP)
-    mensaje = f"{ganador.get_nombre()} aplasta a {perdedor.get_nombre()} sin piedad!"
-    print(f"  {mensaje}")
+    print(f"  {resultado['ganador']} aplasta a {resultado['perdedor']} sin piedad!")
     print(SEP)
 
-    return {"combate": combate_log, "ganador": ganador.get_nombre(), "mensaje": mensaje}
+    return resultado
+
 # ─────────────────────────────────────────────
 #  Main
 # ─────────────────────────────────────────────
@@ -153,5 +146,4 @@ if __name__ == "__main__":
     combatiente1 = seleccionar_entidad(entidades, "Jugador 1 — elige tu entidad")
     combatiente2 = seleccionar_entidad(entidades, "Jugador 2 — elige tu entidad")
 
-    input("\n  Pulsa ENTER para comenzar el combate...")
-    combate(combatiente1, combatiente2)
+    combate_con_ui(combatiente1, combatiente2)

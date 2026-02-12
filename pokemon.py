@@ -224,3 +224,96 @@ def cargar_entidades_filtradas(tabla_filtrada, habilidades: dict = None) -> dict
         fila["id"]: _fila_a_entidad(fila.to_dict(), habilidades)
         for _, fila in tabla_filtrada.iterrows()
     }
+    
+# _____________________________________________
+
+#  Combate
+# _____________________________________________
+
+def simular_combate(e1: Entidad, e2: Entidad) -> dict:
+    """
+    Simula un combate completo entre dos entidades.
+    Devuelve el log del combate y el ganador.
+    """
+    import random
+    
+    # Reiniciar stats
+    e1.hp = e1.hp_max
+    e2.hp = e2.hp_max
+    e1.mana = e1.mana_max
+    e2.mana = e2.mana_max
+
+    combate_log = []
+    turno = 1
+    max_turnos = 100
+
+    while e1.esta_vivo() and e2.esta_vivo() and turno <= max_turnos:
+        # Determinar orden por velocidad
+        if e1.velocidad > e2.velocidad:
+            orden = [e1, e2]
+        elif e2.velocidad > e1.velocidad:
+            orden = [e2, e1]
+        else:
+            orden = random.sample([e1, e2], 2)
+
+        for atacante in orden:
+            defensor = e1 if atacante == e2 else e2
+
+            if not atacante.esta_vivo():
+                continue
+
+            # Elegir habilidad
+            disponibles = [h for h in atacante.habilidades if h.coste_mana <= atacante.mana]
+            if not disponibles:
+                habilidad = min(atacante.habilidades, key=lambda h: h.coste_mana)
+            else:
+                habilidad = random.choice(disponibles)
+
+            # Consumir mana
+            atacante.mana = max(0, atacante.mana - habilidad.coste_mana)
+
+            # Comprobar evasión
+            esquivo = random.randint(1, 100) <= defensor.evasion
+
+            if esquivo:
+                combate_log.append({
+                    "turno": turno,
+                    "atacante": atacante.get_nombre(),
+                    "defensor": defensor.get_nombre(),
+                    "habilidad": habilidad.nombre,
+                    "esquivado": True,
+                    "daño": 0,
+                    "hp_restante": defensor.hp,
+                    "mana_atacante": atacante.mana
+                })
+            else:
+                daño = max(1, ((atacante.ataque + habilidad.potencia) - (defensor.defensa // 2)) // 5)
+                defensor.hp = max(0, defensor.hp - daño)
+
+                combate_log.append({
+                    "turno": turno,
+                    "atacante": atacante.get_nombre(),
+                    "defensor": defensor.get_nombre(),
+                    "habilidad": habilidad.nombre,
+                    "esquivado": False,
+                    "daño": daño,
+                    "hp_restante": defensor.hp,
+                    "mana_atacante": atacante.mana
+                })
+
+            if not defensor.esta_vivo():
+                break
+
+        turno += 1
+
+    ganador = e1 if e1.esta_vivo() else e2
+    perdedor = e2 if e1.esta_vivo() else e1
+
+    return {
+        "ganador": ganador.get_nombre(),
+        "ganador_id": ganador.id,
+        "perdedor": perdedor.get_nombre(),
+        "perdedor_id": perdedor.id,
+        "turnos_totales": turno - 1,
+        "log": combate_log
+    }
